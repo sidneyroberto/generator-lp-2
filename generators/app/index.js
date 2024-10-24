@@ -22,7 +22,14 @@ module.exports = class extends Generator {
 
     // Create the project folder
     this.destinationRoot(this.destinationPath(projectName));
-    this.log(`Criando a pasta do projeto: ${projectName}`);
+    this.log(
+      `Criando a pasta e do projeto ${projectName} e o inicializando...`
+    );
+
+    execSync("yarn init -y", {
+      cwd: this.destinationPath(""),
+      stdio: "inherit"
+    });
 
     // Create tsconfig.json with the specified content
     const tsConfig = {
@@ -52,10 +59,7 @@ export default config;
     fs.writeFileSync(this.destinationPath("jest.config.ts"), jestConfig);
 
     // Create src/index.ts as an entry point
-    this.fs.write(
-      this.destinationPath("src/index.ts"),
-      "// Your entry point code here."
-    );
+    this.fs.write(this.destinationPath("src/index.ts"), "// Bons códigos!");
 
     // Modify package.json scripts if it exists
     const packageJsonPath = this.destinationPath("package.json");
@@ -74,9 +78,7 @@ export default config;
   install() {
     // Initialize Yarn and install dependencies inside the project folder
     const projectDir = this.destinationRoot();
-    this.log("Inicializando o projeto com Yarn e instalando dependências...");
-
-    execSync("yarn init -y", { cwd: projectDir, stdio: "inherit" });
+    this.log("Instalando dependências...");
 
     const devDependencies = [
       "typescript",

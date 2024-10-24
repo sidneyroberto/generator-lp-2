@@ -3,9 +3,10 @@
 
 ## Instalação
 
-Primeiramente, instale o [Yeoman](http://yeoman.io) e generator-lp-2 utilizando [npm](https://www.npmjs.com/) (estou assumindo que você já tem instalado em seu computador o [Node.js](https://nodejs.org/)).
+Primeiramente, instale o [Yarn](https://yarnpkg.com/), o [Yeoman](http://yeoman.io) e generator-lp-2 utilizando [npm](https://www.npmjs.com/) (estou assumindo que você já tem instalado em seu computador o [Node.js](https://nodejs.org/)).
 
 ```bash
+npm install -g yarn
 npm install -g yo
 npm install -g generator-lp-2
 ```
