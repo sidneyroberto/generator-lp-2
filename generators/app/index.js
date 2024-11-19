@@ -59,7 +59,7 @@ export default config;
 node_modules/
 coverage/    
     `;
-    fs.writeFileSync(this.destinationPath(".gitignore", gitIgnore));
+    fs.writeFileSync(this.destinationPath(".gitignore"), gitIgnore);
 
 
     this.fs.write(this.destinationPath("src/index.ts"), "// Bons códigos!");
