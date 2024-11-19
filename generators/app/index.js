@@ -6,7 +6,6 @@ module.exports = class extends Generator {
   async prompting() {
     this.log("Bem vindo ao gerador de projetos da LP2!");
 
-    // Prompt for project name
     this.answers = await this.prompt([
       {
         type: "input",
@@ -20,7 +19,6 @@ module.exports = class extends Generator {
   writing() {
     const { projectName } = this.answers;
 
-    // Create the project folder
     this.destinationRoot(this.destinationPath(projectName));
     this.log(
       `Criando a pasta e do projeto ${projectName} e o inicializando...`
@@ -31,7 +29,6 @@ module.exports = class extends Generator {
       stdio: "inherit"
     });
 
-    // Create tsconfig.json with the specified content
     const tsConfig = {
       compilerOptions: {
         module: "CommonJS",
@@ -44,7 +41,6 @@ module.exports = class extends Generator {
       JSON.stringify(tsConfig, null, 2)
     );
 
-    // Create jest.config.ts with the specified content
     const jestConfig = `
 import type { Config } from "jest";
 
@@ -59,10 +55,15 @@ export default config;
     `;
     fs.writeFileSync(this.destinationPath("jest.config.ts"), jestConfig);
 
-    // Create src/index.ts as an entry point
+    const gitIgnore = `
+node_modules/
+coverage/    
+    `;
+    fs.writeFileSync(this.destinationPath(".gitignore", gitIgnore));
+
+
     this.fs.write(this.destinationPath("src/index.ts"), "// Bons códigos!");
 
-    // Modify package.json scripts if it exists
     const packageJsonPath = this.destinationPath("package.json");
     if (fs.existsSync(packageJsonPath)) {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
@@ -77,7 +78,6 @@ export default config;
   }
 
   install() {
-    // Initialize Yarn and install dependencies inside the project folder
     const projectDir = this.destinationRoot();
     this.log("Instalando dependências...");
 
